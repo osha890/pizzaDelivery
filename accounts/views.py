@@ -11,9 +11,9 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form': form, 'title': 'Sign up'})
 
 
 def home(request):
     if request.method == 'GET':
-        return render(request, 'accounts/home.html')
+        return render(request, 'accounts/home.html', {'title': 'Home page'})
