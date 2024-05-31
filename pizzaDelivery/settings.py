@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-tif1tupc&i=^e)2mydcr=kdvi4mt1^ti5$5+kww#e*gc(4y$b8
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -71,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pizzaDelivery.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -81,11 +78,10 @@ DATABASES = {
         'NAME': 'pizzaDelivery',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -105,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -116,7 +111,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
