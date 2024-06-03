@@ -24,4 +24,4 @@ class SizeAdmin(admin.ModelAdmin):
 
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['category', 'size', 'price']
