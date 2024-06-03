@@ -25,3 +25,4 @@ class SizeAdmin(admin.ModelAdmin):
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     list_display = ['category', 'size', 'price']
+    list_editable = ['price',]
