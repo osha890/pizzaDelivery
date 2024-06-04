@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import *
 
 
+# ---------PIZZA---------
+
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
     pass
@@ -25,4 +27,16 @@ class SizeAdmin(admin.ModelAdmin):
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     list_display = ['category', 'size', 'price']
-    list_editable = ['price',]
+    list_editable = ['price', ]
+
+
+# ---------CART---------
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['user', 'created_at']
+
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ['cart', 'pizza', 'size', 'quantity', 'added_at']

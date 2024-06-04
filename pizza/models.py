@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
+
+# ---------PIZZA---------
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -43,3 +46,27 @@ class Pizza(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# ---------CART---------
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.pk}'
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField(default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def get_total_price(self):
+        return Price.objects.get(category=self.pizza.category, size=self.size) * self.quantity
+
+    def __str__(self):
+        return f'Cart {self.cart.pk}: {self.pizza} {self.size}'
