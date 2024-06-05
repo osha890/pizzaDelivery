@@ -28,15 +28,3 @@ class SizeAdmin(admin.ModelAdmin):
 class PriceAdmin(admin.ModelAdmin):
     list_display = ['category', 'size', 'price']
     list_editable = ['price', ]
-
-
-# ---------CART---------
-
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ['user', 'created_at']
-
-
-@admin.register(CartItem)
-class CartItemAdmin(admin.ModelAdmin):
-    list_display = ['cart', 'pizza', 'size', 'quantity', 'added_at']
