@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block main %}
-    <div class="home-main">
-        <h1>Catalog</h1>
-    </div>
+    {% for pizza in pizzas %}
+        <h2>{{ pizza.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.size.label_tag }} {{ form.size }}
+            <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
+            <button type="submit">Добавить в корзину</button>
+        </form>
+    {% endfor %}
 {% endblock %}

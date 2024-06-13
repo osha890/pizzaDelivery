@@ -11,5 +11,5 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ['cart', 'pizza', 'size', 'quantity', 'first_added_at', 'last_added_at']
+    list_display = ['cart', 'pizza', 'size', 'quantity', 'first_added_at', 'last_edited_at']
     list_display_links = ['pizza',]

@@ -20,7 +20,7 @@ class CartItem(models.Model):
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1)
     first_added_at = models.DateTimeField(auto_now_add=True)
-    last_added_at = models.DateTimeField(auto_now_add=True)
+    last_edited_at = models.DateTimeField(auto_now_add=True)
 
     def get_total_price(self):
         return Price.objects.get(category=self.pizza.category, size=self.size) * self.quantity
