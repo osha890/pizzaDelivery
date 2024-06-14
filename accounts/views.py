@@ -11,7 +11,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('pizza_list')
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form, 'title': 'Sign up'})
@@ -26,7 +26,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('pizza_list')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form, 'title': 'Log in'})

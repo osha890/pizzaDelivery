@@ -1,5 +1,5 @@
 from django import forms
-from .models import Size
+from pizza.models import Size
 
 
 class AddToCartForm(forms.Form):

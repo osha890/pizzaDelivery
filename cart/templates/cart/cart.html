@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block main %}
+    {% for ci in cart_items %}
+        <p>{{ ci.pizza.name }}</p>
+        <p>{{ ci.size }}</p>
+        <p>{{ ci.quantity }}</p>
+        <hr>
+    {% endfor %}
+{% endblock %}
