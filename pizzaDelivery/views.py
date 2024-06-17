@@ -28,7 +28,7 @@ def pizza_list_view(request):
                     cart_item.last_edited_at = timezone.now()
                     cart_item.save()
 
-            return redirect('pizza_list')
+            return redirect('success')
         else:
             return redirect('login')
     elif request.method == 'GET':
@@ -40,3 +40,7 @@ def pizza_list_view(request):
             'form': form,
         }
         return render(request, 'pizza_list.html', context)
+
+
+def success_view(request):
+    return render(request, 'success.html', {'title': 'Success'})
