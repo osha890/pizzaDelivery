@@ -1,3 +1,5 @@
+import os.path
+
 from django.db import models
 
 
@@ -38,10 +40,17 @@ class Ingredient(models.Model):
         return self.name
 
 
+def pizza_image_upload_to(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{instance.name}.{ext}'
+    return os.path.join('pizzas/', filename)
+
+
 class Pizza(models.Model):
     name = models.CharField(max_length=50)
     ingredients = models.ManyToManyField(Ingredient)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    image = models.ImageField(upload_to=pizza_image_upload_to, null=True, blank=True)
 
     def __str__(self):
         return self.name

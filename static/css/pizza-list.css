@@ -1,0 +1,66 @@
+.list-container {
+    /* border: 2px solid tomato; */
+    margin: 0 80px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 20px;
+}
+
+.pizza-item {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f5f5f5;
+    text-align: center;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.pizza-name {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pizza-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-to-cart-form label {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.add-to-cart-form select,
+.add-to-cart-form input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 100px;
+}
+
+.add-to-cart-button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+    background-color: #ff3b2f;
+}
