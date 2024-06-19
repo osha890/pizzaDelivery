@@ -2,16 +2,18 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pizza-list.css' %}">
 {% endblock %}
 
 {% block main %}
     <div class="list-container">
         {% for ci in cart_items %}
             <div class="pizza-item">
-                <h2 class="pizza-name">{{ ci.pizza.name }}</h2>
+                <div class="pizza-name">{{ ci.pizza.name }}</div>
                 {% if ci.pizza.image %}
                     <img src="{{ ci.pizza.image.url }}" alt="{{ ci.pizza.name }}" class="pizza-image">
+                {% else %}
+                    <img src="{% static 'pizza/images/Default.png' %}" alt="" class="pizza-image">
                 {% endif %}
                 <div class="label">Size</div>
                 <div class="size">{{ ci.size }}</div>

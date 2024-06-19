@@ -14,37 +14,48 @@
     background-color: #f5f5f5;
     text-align: center;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
 }
 
-.pizza-name {
+.pizza-item .pizza-name {
+    display: flex;
+    align-items: center;
+    height: 2em;
     font-size: 24px;
+    font-weight: bold;
     color: #333;
     margin-bottom: 10px;
 }
 
-.pizza-image {
+.pizza-item .pizza-image {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 15px;
 }
 
-.add-to-cart-form {
+.pizza-item .add-to-cart-form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.add-to-cart-form label {
+.pizza-item .add-to-cart-form label, .pizza-item .label {
     font-weight: bold;
     margin: 5px 0;
 }
 
 .add-to-cart-form select,
-.add-to-cart-form input[type="number"] {
+.add-to-cart-form input[type="number"],
+.pizza-item .size,
+.pizza-item .quantity {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: #fff;
     margin-bottom: 10px;
     font-size: 16px;
     width: 100px;

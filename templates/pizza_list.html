@@ -22,9 +22,11 @@
     <div class="list-container">
         {% for pizza in pizzas %}
         <div class="pizza-item">
-            <h2 class="pizza-name">{{ pizza.name }}</h2>
+            <div class="pizza-name">{{ pizza.name }}</div>
             {% if pizza.image %}
                 <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-image">
+            {% else %}
+                <img src="{% static 'pizza/images/Default.png' %}" alt="" class="pizza-image">
             {% endif %}
             <form method="post" class="add-to-cart-form">
                 {% csrf_token %}
