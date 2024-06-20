@@ -6,3 +6,7 @@ class AddToCartForm(forms.Form):
     size = forms.ModelChoiceField(queryset=Size.objects.all(), empty_label=None)
     quantity = forms.IntegerField(min_value=1, initial=1)
     pizza_id = forms.IntegerField(widget=forms.HiddenInput())
+
+
+class DeleteFromCartForm(forms.Form):
+    ci_id = forms.IntegerField(widget=forms.HiddenInput())

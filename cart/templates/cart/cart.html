@@ -19,6 +19,11 @@
                 <div class="size">{{ ci.size }}</div>
                 <div class="label">Quantity</div>
                 <div class="quantity">{{ ci.quantity }}</div>
+                <form method="post" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="ci_id" value="{{ ci.id }}">
+                    <button type="submit" class="delete-from-cart-button">Удалить</button>
+                </form>
             </div>
         {% endfor %}
     </div>
