@@ -6,7 +6,7 @@ from django.utils import timezone
 from orders.models import Order, OrderItem
 
 
-def order_view(request):
+def create_order_view(request):
     if request.method == 'POST':
         user = request.user
         cart = Cart.objects.filter(user=user).first()
@@ -28,3 +28,14 @@ def order_view(request):
                 order.save()
                 return redirect('success')
     return redirect('cart')
+
+
+def orders_view(request):
+    if request.method == 'GET':
+        orders = Order.objects.filter(user=request.user)
+        context = {
+            'orders': orders,
+            'title': 'Orders',
+        }
+        return render(request, 'orders/orders.html', context)
+    return redirect('pizza_list')

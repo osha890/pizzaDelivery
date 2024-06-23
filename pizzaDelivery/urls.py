@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', pizza_list_view, name='pizza_list'),
     path('accounts/', include('accounts.urls')),
-    path('pizzas/', include('pizza.urls')),
     path('cart/', include('cart.urls')),
     path('orders/', include('orders.urls')),
     path('success/', success_view, name='success')

@@ -265,38 +265,6 @@ main {
     flex: 1;
 }
 
-/* .cart-grid {
-    margin: 40px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    row-gap: 20px;
-}
-
-.cart-grid div {
-
-}
-
-.cart-grid h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--text-cl);
-} */
-
-/* .cart-item {
-    outline: 1px solid var(--main-cl);
-    margin: 20px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-item div {
-    outline: 1px solid black;
-} */
-
 .cart-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -341,4 +309,38 @@ main {
 
 .create-order-form button[type="submit"]:hover {
     background-color: var(--main-cl);
+}
+
+
+/* ------------------------------------------------ */
+
+.orders-container {
+    padding: 20px 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    font-size: 20px;
+}
+/* 
+.order-container {
+    display: flex;
+    border-bottom: 1px solid #c0c0c0;
+} */
+
+.orders-container .main {
+    padding: 20px 80px 20px 0;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.orders-container .order-id {
+    font-weight: bold;
+}
+
+.orders-container .oi-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.orders-container .order-price {
+    display: flex;
+    align-items: end;
 }

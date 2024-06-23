@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main %}
+    <div class="orders-container">
+        {% for order in orders %}
+            <div class="main order-id">Order {{ order.id }}</div>
+            <div class="main order-date">{{ order.created_at }}</div>
+            <div class="main oi-container">
+                {% for oi in order.orderitem_set.all %}
+                    <div>{{ oi.pizza.name }}</div>
+                    <div>{{ oi.size }}</div>
+                    <div>{{ oi.quantity }}</div>
+                {% endfor %}
+            </div>
+            <div class="main order-price">{{ order.order_price }}$</div>
+        {% endfor %}
+    </div>
+{% endblock %}

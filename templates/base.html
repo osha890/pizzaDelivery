@@ -13,6 +13,7 @@
             <div><a href="{% url 'pizza_list' %}">Pizzas</a></div>
             {% if user.is_authenticated %}
                 <div><a href="{% url 'cart' %}">Cart</a></div>
+                <div><a href="{% url 'orders' %}">Orders</a></div>
                 <div><a href="{% url 'logout' %}">Logout</a></div>
             {% else %}
                 <div><a href="{% url 'signup' %}">Signup</a></div>
