@@ -1,10 +1,12 @@
 :root {
-    /* --green: #13a36c; */
-    --green: #13a36c;
-    --light-green: #7fbea6;
-    --shadow: #b8b8b8;
-    --red: #cf1717;
-    --light-red: #e27878;
+    --main-cl: #13a36c;
+    --main-l-cl: #7fbea6;
+    --shadow-cl: #b8b8b8;
+    --danger-cl: #cf1717;
+    --danger-l-cl: #e48181;
+    --danger-ll-cl: #ffdddd;
+    --bgc-cl: #fff;
+    --text-cl: #333;
 }
 
 * {
@@ -13,7 +15,7 @@
 }
 
 body {
-    background-color: #fff;
+    background-color: var(--bgc-cl);
     font-family: Verdana;
     display: flex;
     flex-direction: column;
@@ -21,9 +23,9 @@ body {
 }
 
 header, footer {
-    min-height: 70px;;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px 1px var(--shadow);
+    min-height: 70px;
+    background-color: var(--bgc-cl);
+    box-shadow: 0px 0px 5px 1px var(--shadow-cl);
 }
 
 header {
@@ -39,7 +41,7 @@ header .nav {
 header .nav a {
     font-size: 20px;
     text-decoration: none;
-    color: var(--green);
+    color: var(--main-cl);
     margin: 0 20px
 }
 
@@ -56,10 +58,10 @@ main {
 }
 
 .signup-main form {
-    background: #fff;
+    background: var(--bgc-cl);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 0px 5px 1px var(--shadow);
+    box-shadow: 0px 0px 5px 1px var(--shadow-cl);
     width: 300px;
 }
 
@@ -67,7 +69,7 @@ main {
 .signup-main h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-cl);
 }
 
 .signup-main form div {
@@ -81,7 +83,9 @@ main {
     color: #666;
 }
 
-.signup-main form div input[type="text"], .signup-main form div input[type="email"], .signup-main form div input[type="password"] {
+.signup-main form div input[type="text"],
+.signup-main form div input[type="email"],
+.signup-main form div input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -90,31 +94,33 @@ main {
 }
 
 
-.signup-main form div input[type="text"]:focus, .signup-main form div input[type="email"]:focus, .signup-main form div input[type="password"]:focus {
-    outline: 1px solid var(--green);
-    border: 1px solid var(--green);
+.signup-main form div input[type="text"]:focus,
+.signup-main form div input[type="email"]:focus,
+.signup-main form div input[type="password"]:focus {
+    outline: 1px solid var(--main-cl);
+    border: 1px solid var(--main-cl);
 }
 
 .signup-main form button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background: var(--green);
+    background: var(--main-cl);
     border: none;
     border-radius: 4px;
-    color: #fff;
+    color: var(--bgc-cl);
     font-size: 16px;
     cursor: pointer;
 }
 
 .signup-main form button[type="submit"]:hover {
-    background: #108a5b;
+    background: var(--main-cl);
 }
 
 .signup-main .error-summary {
     margin-top: 20px;
-    background: #ffdddd;
-    color: #ff0000;
-    border: 1px solid #ff0000;
+    background: var(--danger-ll-cl);
+    color: var(--danger-cl);
+    border: 1px solid var(--danger-cl);
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 15px;
@@ -143,5 +149,196 @@ main {
 }
 
 .home-main h1 {
-    color: #333;
+    color: var(--text-cl);
+}
+
+
+/* ------------------------------------------------ */
+
+
+.list-container {
+    /* border: 2px solid tomato; */
+    margin: 0 80px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 20px;
+}
+
+.pizza-item {
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: var(--bgc-cl);
+    text-align: center;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    /* transition: all 0.2s ease; */
+}
+
+.pizza-item:hover {
+    box-shadow: 0px 0px 10px 0px var(--shadow-cl);
+}
+
+.pizza-item .pizza-name {
+    display: flex;
+    align-items: center;
+    height: 2em;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-cl);
+    margin-bottom: 10px;
+}
+
+.pizza-item .pizza-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-to-cart-form label, .pizza-item .label {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.add-to-cart-form select,
+.add-to-cart-form input[type="number"],
+.pizza-item .size,
+.pizza-item .quantity {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 100px;
+}
+
+.add-to-cart-button {
+    background-color: var(--main-l-cl);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+    background-color: var(--main-cl);
+}
+
+.delete-from-cart-button {
+    background-color: var(--danger-l-cl);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-from-cart-button:hover {
+    background-color: var(--danger-cl);
+}
+
+
+/* ------------------------------------------------ */
+
+.cart-main {
+    height: 100%;
+    display: flex;
+}
+
+.cart-user-info, .cart-list {
+    flex: 1;
+}
+
+/* .cart-grid {
+    margin: 40px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    row-gap: 20px;
+}
+
+.cart-grid div {
+
+}
+
+.cart-grid h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-cl);
+} */
+
+/* .cart-item {
+    outline: 1px solid var(--main-cl);
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item div {
+    outline: 1px solid black;
+} */
+
+.cart-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 20px;
+    padding: 20px;
+}
+
+.cart-grid div {
+    padding: 10px;
+    border-bottom: 1px solid #c0c0c0;
+    text-align: center;
+    align-content: center;
+}
+
+.cart-grid .pizza-name {
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-cl);
+}
+
+.cart-user-info {
+    display: flex;
+}
+
+.create-order-form {
+    margin: auto;
+}
+
+.create-order-form button[type="submit"] {
+    background-color: var(--main-l-cl);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.create-order-form button[type="submit"]:hover {
+    background-color: var(--main-cl);
 }

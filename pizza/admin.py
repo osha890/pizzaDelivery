@@ -6,7 +6,7 @@ from .models import *
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'category',]
 
 
 @admin.register(Ingredient)

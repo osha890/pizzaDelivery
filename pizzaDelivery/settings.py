@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'pizza.apps.PizzaConfig',
     'accounts.apps.AccountsConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
     # 'rest_framework',
 ]
 

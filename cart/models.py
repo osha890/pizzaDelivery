@@ -23,7 +23,7 @@ class CartItem(models.Model):
     last_edited_at = models.DateTimeField(auto_now_add=True)
 
     def get_total_price(self):
-        return Price.objects.get(category=self.pizza.category, size=self.size) * self.quantity
+        return Price.objects.get(category=self.pizza.category, size=self.size).price * self.quantity
 
     def save(self, *args, **kwargs):  # Override
         self.last_added_at = timezone.now()  # Обновляем поле last_added_at перед сохранением
