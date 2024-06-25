@@ -6,7 +6,7 @@ from .models import *
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category',]
+    list_display = ['name', 'category', ]
 
 
 @admin.register(Ingredient)
@@ -21,10 +21,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'size', ]
 
 
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
-    list_display = ['category', 'size', 'price']
+    list_display = ['category', 'size_name', 'price']
     list_editable = ['price', ]
+
+    def size_name(self, obj):
+        return obj.size.name

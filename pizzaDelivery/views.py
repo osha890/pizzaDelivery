@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from pizza.models import Pizza
+from pizza.models import Pizza, Size
 from cart.forms import AddToCartForm
 
 from cart.models import Cart, CartItem
@@ -17,7 +17,7 @@ def pizza_list_view(request):
 
                 cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
 
-                cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=size, defaults={
+                cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(size=int(size)), defaults={
                     'quantity': quantity,
                     'first_added_at': timezone.now(),
                     'last_edited_at': timezone.now()
