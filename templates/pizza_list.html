@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <!-- <link rel="stylesheet" href="{% static 'css/pizza-list.css' %}"> -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -15,7 +15,7 @@
             {% else %}
                 <img src="{% static 'images/Default.png' %}" alt="" class="pizza-image">
             {% endif %}
-            <form method="post" class="add-to-cart-form">
+            <form method="post" class="add-to-cart-form" id="add-to-cart-form">
                 {% csrf_token %}
                 {{ form.size.label_tag }} {{ form.size }}
                 {{ form.quantity.label_tag }} {{ form.quantity }}
@@ -25,4 +25,32 @@
         </div>
         {% endfor %}
     </div>
+    <div id="response-message"></div>
+
+
+    <!-- Боже мой я так этого ждал... -->
+
+    <script>
+       $(document).ready(function() {
+           $('.add-to-cart-form').on('submit', function(event) {
+               event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+               $.ajax({
+                   url: "{% url 'pizza_list' %}",
+                   type: "POST",
+                   data: $(this).serialize(),
+                   success: function(response) {
+                       if (response.status === 'success') {
+                           $('#response-message').html('<p style="color: green;">' + response.message + '</p>');
+                       } else {
+                           $('#response-message').html('<p style="color: red;">' + response.message + '</p>');
+                       }
+                   },
+                   error: function(xhr, errmsg, err) {
+                       $('#response-message').html('<p style="color: red;">Ошибка при добавлении в корзину. Попробуйте еще раз.</p>');
+                   }
+               });
+           });
+       });
+   </script>
 {% endblock %}

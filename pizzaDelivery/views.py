@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from pizza.models import Pizza, Size
@@ -28,9 +29,13 @@ def pizza_list_view(request):
                     cart_item.last_edited_at = timezone.now()
                     cart_item.save()
 
-            return redirect('success')
+            # return redirect('success')
+                return JsonResponse({'status': 'success', 'message': 'Item added to cart'})
+            else:
+                return JsonResponse({'status': 'error', 'errors': form.errors})
         else:
-            return redirect('login')
+            # return redirect('login')
+            return JsonResponse({'status': 'error', 'message': 'User not authenticated'})
     elif request.method == 'GET':
         pizzas = Pizza.objects.all()
         form = AddToCartForm()
