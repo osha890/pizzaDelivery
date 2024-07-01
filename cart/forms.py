@@ -15,7 +15,7 @@ class AddToCartForm(forms.ModelForm):
         model = CartItem
         fields = ['size', 'quantity']
 
-    size = forms.ModelChoiceField(queryset=Size.objects.all())
+    size = forms.ModelChoiceField(queryset=Size.objects.all(), widget=forms.RadioSelect)
     quantity = forms.IntegerField(min_value=1, initial=1)
 
 

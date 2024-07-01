@@ -17,7 +17,10 @@
             {% endif %}
             <form method="post" class="add-to-cart-form">
                 {% csrf_token %}
-                {{ form.size.label_tag }} {{ form.size }}
+                {% for radio in form.size %}
+                    <input type="radio" id="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}" name="size_{{ forloop.parentloop.counter }}" value="{{ radio.choice_value }}">
+                    <label for="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}">{{ radio.choice_label }}</label>
+                {% endfor %}
                 {{ form.quantity.label_tag }} {{ form.quantity }}
                 <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
                 <button type="submit" class="add-to-cart-button">Добавить в корзину</button>

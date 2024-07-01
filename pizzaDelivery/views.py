@@ -10,10 +10,13 @@ def pizza_list_view(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             form = AddToCartForm(request.POST)
+            print(request.POST.get('size'))
             if form.is_valid():
                 pizza_id = request.POST.get('pizza_id')
                 size = form.cleaned_data['size']
                 quantity = form.cleaned_data['quantity']
+
+                print(size)
 
                 cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
 
