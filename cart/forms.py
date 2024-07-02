@@ -2,20 +2,19 @@ from django import forms
 from pizza.models import Size
 
 
-# def get_sizes():
-#     sizes = []
-#     for s in Size.objects.all():
-#         sizes.append((s.size, s.name))
-#     return sizes
+def get_sizes():
+    sizes = []
+    try:
+        for s in Size.objects.all():
+            sizes.append((s.size, s.name))
+    except Exception as e:
+        print(e)
+    return sizes
 
 
 class AddToCartForm(forms.Form):
     size = forms.ChoiceField(
-        choices=[
-            ('25', 'Small'),
-            ('30', 'Medium'),
-            ('35', 'Large')
-        ],
+        choices=get_sizes(),
         widget=forms.RadioSelect
     )
     quantity = forms.IntegerField(min_value=1, initial=1)
