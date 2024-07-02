@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block main %}
+    <div id="response-message"></div>
     <div class="list-container">
         {% for pizza in pizzas %}
         <div class="pizza-item">
@@ -17,15 +18,20 @@
             {% endif %}
             <form method="post" class="add-to-cart-form" id="add-to-cart-form">
                 {% csrf_token %}
-                {{ form.size.label_tag }} {{ form.size }}
+
+                {% for radio in form.size %}
+                    <input type="radio" id="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}" name="size" value="{{ radio.choice_label }}" required class="hidden-radio">
+                    <label for="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}" class="radio-button-label">{{ radio.choice_label }}</label>
+                {% endfor %}
+
                 {{ form.quantity.label_tag }} {{ form.quantity }}
+
                 <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
                 <button type="submit" class="add-to-cart-button">Добавить в корзину</button>
             </form>
         </div>
         {% endfor %}
     </div>
-    <div id="response-message"></div>
 
 
     <!-- Боже мой я так этого ждал... -->

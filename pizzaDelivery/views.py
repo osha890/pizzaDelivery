@@ -10,29 +10,24 @@ from cart.models import Cart, CartItem
 def pizza_list_view(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            form = AddToCartForm(request.POST)
-            if form.is_valid():
-                pizza_id = form.cleaned_data['pizza_id']
-                size = form.cleaned_data['size']
-                quantity = form.cleaned_data['quantity']
+            pizza_id = int(request.POST.get('pizza_id'))
+            size = request.POST.get('size')
+            quantity = int(request.POST.get('quantity'))
+            cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
 
-                cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(name=size), defaults={
+                'quantity': quantity,
+                'first_added_at': timezone.now(),
+                'last_edited_at': timezone.now()
+            })
 
-                cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(size=int(size)), defaults={
-                    'quantity': quantity,
-                    'first_added_at': timezone.now(),
-                    'last_edited_at': timezone.now()
-                })
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.last_edited_at = timezone.now()
+                cart_item.save()
 
-                if not created:
-                    cart_item.quantity += quantity
-                    cart_item.last_edited_at = timezone.now()
-                    cart_item.save()
-
-            # return redirect('success')
-                return JsonResponse({'status': 'success', 'message': 'Item added to cart'})
-            else:
-                return JsonResponse({'status': 'error', 'errors': form.errors})
+        # return redirect('success')
+            return JsonResponse({'status': 'success', 'message': 'Item added to cart'})
         else:
             # return redirect('login')
             return JsonResponse({'status': 'error', 'message': 'User not authenticated'})
