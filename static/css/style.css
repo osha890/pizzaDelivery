@@ -261,33 +261,21 @@ main {
     display: flex;
 }
 
-.cart-user-info, .cart-list {
-    flex: 1;
-}
-
-.cart-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 20px;
-    padding: 20px;
-}
-
-.cart-grid div {
-    padding: 10px;
-    border-bottom: 1px solid #c0c0c0;
-    text-align: center;
-    align-content: center;
-}
-
-.cart-grid .pizza-name {
-    text-align: left;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--text-cl);
-}
-
 .cart-user-info {
+    flex: 1;
     display: flex;
+}
+
+.cart-list {
+    margin: 20px 0;
+    border-left: 1px solid var(--shadow-cl);
+    width: 500px;
+}
+
+.cart-list h2 {
+    text-align: center;
+    color: #333;
+    font-size: 26px;
 }
 
 .create-order-form {
@@ -308,6 +296,52 @@ main {
 }
 
 .create-order-form button[type="submit"]:hover {
+    background-color: var(--main-cl);
+}
+
+.cart-item {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ci-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ci-left .pizza-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.ci-left .pizza-size {
+    color: #888;
+}
+
+.ci-right {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+.ci-right .update-quantity {
+    all: unset;
+    cursor: pointer;
+    margin: 0px 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--main-l-cl);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: all ease 0.2s;
+}
+
+.ci-right .update-quantity:hover {
     background-color: var(--main-cl);
 }
 
