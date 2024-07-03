@@ -19,11 +19,6 @@
             <form method="post" class="add-to-cart-form" id="add-to-cart-form">
                 {% csrf_token %}
 
-                <!-- {% for radio in form.size %}
-                    <input type="radio" id="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}" name="size" value="{{ radio.choice_label }}" required class="hidden-radio">
-                    <label for="{{ radio.id_for_label }}_{{ forloop.parentloop.counter }}" class="radio-button-label">{{ radio.choice_label }}</label>
-                {% endfor %} -->
-
                 {% for value, label in form.size.field.choices %}
                     <input type="radio" id="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}" name="size" value="{{ value }}" required class="hidden-radio">
                     <label for="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}" class="radio-button-label">{{ label }}</label>

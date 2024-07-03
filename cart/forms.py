@@ -6,7 +6,7 @@ def get_sizes():
     sizes = []
     try:
         for s in Size.objects.all():
-            sizes.append((s.size, s.name))
+            sizes.append((s.id, s.name))
     except Exception as e:
         print(e)
     return sizes
@@ -21,5 +21,5 @@ class AddToCartForm(forms.Form):
     pizza_id = forms.IntegerField(widget=forms.HiddenInput())
 
 
-class DeleteFromCartForm(forms.Form):
-    ci_id = forms.IntegerField(widget=forms.HiddenInput())
+# class DeleteFromCartForm(forms.Form):
+#     ci_id = forms.IntegerField(widget=forms.HiddenInput())

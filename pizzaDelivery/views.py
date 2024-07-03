@@ -11,11 +11,11 @@ def pizza_list_view(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             pizza_id = int(request.POST.get('pizza_id'))
-            size = int(request.POST.get('size'))
+            size_id = int(request.POST.get('size'))
             quantity = int(request.POST.get('quantity'))
             cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
 
-            cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(size=size), defaults={
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(id=size_id), defaults={
                 'quantity': quantity,
                 'first_added_at': timezone.now(),
                 'last_edited_at': timezone.now()

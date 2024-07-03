@@ -2,31 +2,9 @@
 {% load static %}
 
 {% block head %}
-    <!-- <link rel="stylesheet" href="{% static 'css/pizza-list.css' %}"> -->
 {% endblock %}
 
 {% block main %}
-    <!-- <div class="list-container">
-        {% for ci in cart_items %}
-            <div class="pizza-item">
-                <div class="pizza-name">{{ ci.pizza.name }}</div>
-                {% if ci.pizza.image %}
-                    <img src="{{ ci.pizza.image.url }}" alt="{{ ci.pizza.name }}" class="pizza-image">
-                {% else %}
-                    <img src="{% static 'images/Default.png' %}" alt="" class="pizza-image">
-                {% endif %}
-                <div class="label">Size</div>
-                <div class="size">{{ ci.size }}</div>
-                <div class="label">Quantity</div>
-                <div class="quantity">{{ ci.quantity }}</div>
-                <form method="post" class="add-to-cart-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="ci_id" value="{{ ci.id }}">
-                    <button type="submit" class="delete-from-cart-button">Удалить</button>
-                </form>
-            </div>
-        {% endfor %}
-    </div> -->
     <div class="cart-main">
         <div class="cart-user-info">
             <form action="{% url 'create_order' %}" method="post" class="create-order-form">
@@ -35,22 +13,52 @@
             </form>
         </div>
         <div class="cart-list">
-            <div class="cart-grid">
-                {% for ci in cart_items %}
-                    <!-- <div class="cart-item"> -->
-                        <div class="pizza-name">{{ ci.pizza.name }}</div>
-                        <div>{{ ci.size }}</div>
-                        <div>{{ ci.quantity }}</div>
-                        <div>
-                            <form method="post" class="add-to-cart-form">
-                                {% csrf_token %}
-                                <input type="hidden" name="ci_id" value="{{ ci.id }}">
-                                <button type="submit" class="delete-from-cart-button">Удалить</button>
-                            </form>
-                        </div>
-                    <!-- </div> -->
-                {% endfor %}
-            </div>
+            {% for ci in cart_items %}
+                <div class="cart-grid">
+                    <div class="pizza-name">{{ ci.pizza.name }}</div>
+                    <div>{{ ci.size }}</div>
+                    <div class="quantity">{{ ci.quantity }}</div>
+                    <div>
+                        <button class="update-quantity" data-action="decrease" data-item-id="{{ ci.id }}">-</button>
+                        <button class="update-quantity" data-action="increase" data-item-id="{{ ci.id }}">+</button>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.update-quantity').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var itemId = this.getAttribute('data-item-id');
+                    var action = this.getAttribute('data-action');
+                    
+                    console.log(`Sending item_id: ${itemId}, action: ${action}`);  // Добавим вывод данных в консоль
+
+                    fetch("{% url 'update_quantity' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                        body: JSON.stringify({
+                            'item_id': itemId,
+                            'action': action
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.quantity !== undefined) {
+                            this.parentElement.parentElement.querySelector('.quantity').innerText = data.quantity; // Исправим здесь
+                        } else if (data.error === 'item deleted') {
+                            this.parentElement.parentElement.remove(); // Удалим элемент из DOM, если он удален на сервере
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при выполнении fetch:', error);
+                    });
+                });
+            });
+        });
+        </script>
 {% endblock %}
