@@ -8,28 +8,40 @@
 {% block main %}
     <div id="response-message"></div>
     <div class="list-container">
-        {% for pizza in pizzas %}
-        <div class="pizza-item">
-            <div class="pizza-name">{{ pizza.name }}</div>
-            {% if pizza.image %}
-                <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-image">
-            {% else %}
-                <img src="{% static 'images/Default.png' %}" alt="" class="pizza-image">
-            {% endif %}
-            <form method="post" class="add-to-cart-form" id="add-to-cart-form">
-                {% csrf_token %}
+        {% for cat in cats %}
+            <h2 class="cat">{{ cat }}</h2>
+            <div class="cat-container">
+                {% for pizza in cat.pizza_set.all %}
+                <div class="pizza-item">
+                    <div class="pizza-name">{{ pizza.name }}</div>
+                    {% if pizza.image %}
+                        <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-image">
+                    {% else %}
+                        <img src="{% static 'images/Default.png' %}" alt="" class="pizza-image">
+                    {% endif %}
+                    <form method="post" class="add-to-cart-form" id="add-to-cart-form">
+                        {% csrf_token %}
 
-                {% for value, label in form.size.field.choices %}
-                    <input type="radio" id="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}" name="size" value="{{ value }}" required class="hidden-radio">
-                    <label for="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}" class="radio-button-label">{{ label }}</label>
+                        <div class="size-button-container">
+                            {% for value, label in form.size.field.choices %}
+                                <div class="size-button">
+                                    <input type="radio" id="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.parentloop.parentloop.counter }}" name="size" value="{{ value }}" required class="hidden-radio">
+                                    <label for="id_size_{{ forloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.parentloop.parentloop.counter }}" class="radio-button-label">{{ label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- {{ form.quantity.label_tag }} {{ form.quantity }} -->
+
+                        <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
+                        <div class="form-bottom">
+                            <div class="price">0.00$</div>
+                            <button type="submit" class="add-to-cart-button">Add to cart</button>
+                        </div>
+                    </form>
+                </div>
                 {% endfor %}
-
-                {{ form.quantity.label_tag }} {{ form.quantity }}
-
-                <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
-                <button type="submit" class="add-to-cart-button">Добавить в корзину</button>
-            </form>
-        </div>
+            </div>
         {% endfor %}
     </div>
 
