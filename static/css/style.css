@@ -20,6 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: var(--text-cl);
 }
 
 header, footer {
@@ -168,7 +169,9 @@ main {
 }
 
 .cat {
-    margin-top: 40px;
+    font-size: 34px;
+    margin-top: 60px;
+    color: var(--main-cl)
 }
 
 .pizza-item {
@@ -182,6 +185,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     min-width: 200px;
     /* transition: all 0.2s ease; */
 }
@@ -190,18 +194,21 @@ main {
     box-shadow: 0px 0px 10px 0px var(--shadow-cl);
 }
 
-.pizza-item .pizza-name {
-    display: flex;
-    align-items: center;
-    height: 2em;
+.pizza-item .pizza-info {
+    /* border: 1px solid salmon; */
+    width: 100%;
+    text-align: start;
+    margin-bottom: 15px;
+}
+
+.pizza-item .pizza-info h3 {
     font-size: 24px;
-    font-weight: bold;
-    color: var(--text-cl);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .pizza-item .pizza-image {
-    max-width: 100%;
+    /* border: 1px solid salmon; */
+    max-width: 80%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -286,7 +293,7 @@ main {
 }
 
 .add-to-cart-button {
-    background-color: var(--main-l-cl);
+    background-color: var(--danger-l-cl);
     color: #fff;
     border: none;
     width: 100%;
@@ -299,7 +306,7 @@ main {
 }
 
 .add-to-cart-button:hover {
-    background-color: var(--main-cl);
+    background-color: var(--danger-cl);
 }
 
 .delete-from-cart-button {

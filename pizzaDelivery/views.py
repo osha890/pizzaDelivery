@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from pizza.models import Pizza, Size, Category
+from pizza.models import Pizza, Size, Category, Price
 from cart.forms import AddToCartForm
 
 from cart.models import Cart, CartItem
@@ -15,18 +15,19 @@ def pizza_list_view(request):
             # quantity = int(request.POST.get('quantity'))
             cart, created = Cart.objects.get_or_create(user=request.user, defaults={'created_at': timezone.now()})
 
-            cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id, size=Size.objects.get(id=size_id), defaults={
-                'quantity': 1,
-                'first_added_at': timezone.now(),
-                'last_edited_at': timezone.now()
-            })
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, pizza_id=pizza_id,
+                                                                size=Size.objects.get(id=size_id), defaults={
+                    'quantity': 1,
+                    'first_added_at': timezone.now(),
+                    'last_edited_at': timezone.now()
+                })
 
             if not created:
                 cart_item.quantity += 1
                 cart_item.last_edited_at = timezone.now()
                 cart_item.save()
 
-        # return redirect('success')
+            # return redirect('success')
             return JsonResponse({'status': 'success', 'message': 'Item added to cart'})
         else:
             # return redirect('login')
