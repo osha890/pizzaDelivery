@@ -28,7 +28,13 @@
                             </p>
                         </div>
                     </div>
-                    <form method="post" class="add-to-cart-form" id="add-to-cart-form">
+                    <form method="post" class="add-to-cart-form" data-prices='{
+                        {% for price in prices %}
+                            {% if price.category.id == cat.id %}
+                                "{{ price.size.id }}": "{{ price.price }}"{% if not forloop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    }'>
                         {% csrf_token %}
 
                         <div class="size-button-container">
@@ -40,11 +46,11 @@
                             {% endfor %}
                         </div>
 
-                        <!-- {{ form.quantity.label_tag }} {{ form.quantity }} -->
-
                         <input type="hidden" name="pizza_id" value="{{ pizza.id }}">
                         <div class="form-bottom">
-                            <div class="price">0.00$</div>
+                            <div class="price">
+
+                            </div>
                             <button type="submit" class="add-to-cart-button">Add to cart</button>
                         </div>
                     </form>
@@ -79,5 +85,31 @@
                });
            });
        });
+       document.addEventListener('DOMContentLoaded', function() {
+            // Найти все формы добавления в корзину
+            const forms = document.querySelectorAll('.add-to-cart-form');
+
+            forms.forEach(form => {
+                // Найти все радио-кнопки размеров внутри формы
+                const sizeRadios = form.querySelectorAll('input[name="size"]');
+                const priceElement = form.querySelector('.price');
+                const prices = JSON.parse(form.getAttribute('data-prices'));
+
+                // Функция для обновления цены
+                const updatePrice = () => {
+                    const selectedSize = form.querySelector('input[name="size"]:checked').value;
+                    const price = prices[selectedSize];
+                    priceElement.textContent = price + '$';
+                };
+
+                // Добавить обработчики событий изменения на все радио-кнопки
+                sizeRadios.forEach(radio => {
+                    radio.addEventListener('change', updatePrice);
+                });
+
+                // Установить начальную цену
+                updatePrice();
+            });
+        });
    </script>
 {% endblock %}

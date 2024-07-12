@@ -35,10 +35,12 @@ def pizza_list_view(request):
     elif request.method == 'GET':
         cats = Category.objects.all()
         form = AddToCartForm()
+        prices = Price.objects.select_related('category', 'size').all()
         context = {
             'title': 'Home page',
             'cats': cats,
             'form': form,
+            'prices': prices,
         }
         return render(request, 'pizza_list.html', context)
 
