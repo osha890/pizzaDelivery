@@ -33,14 +33,20 @@ def pizza_list_view(request):
             # return redirect('login')
             return JsonResponse({'status': 'error', 'message': 'User not authenticated'})
     elif request.method == 'GET':
-        cats = Category.objects.all()
-        form = AddToCartForm()
-        prices = Price.objects.select_related('category', 'size').all()
+
+        pizza_prices = {}
+        for pizza in Pizza.objects.all():
+            pizza_prices[pizza.id] = {}
+            for price in Price.objects.select_related('category', 'size').all():
+                if pizza.category == price.category:
+                    if price.size.id not in pizza_prices[pizza.id]:
+                        pizza_prices[pizza.id][price.size.id] = price.price
+
         context = {
             'title': 'Home page',
-            'cats': cats,
-            'form': form,
-            'prices': prices,
+            'cats': Category.objects.all(),
+            'form': AddToCartForm(),
+            'pizza_prices': pizza_prices,
         }
         return render(request, 'pizza_list.html', context)
 

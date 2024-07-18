@@ -28,10 +28,31 @@
                             </p>
                         </div>
                     </div>
-                    <form method="post" class="add-to-cart-form" data-prices='{
+
+                    <!-- <div>
+                        {% for pizza_id, sizes in pizza_prices.items %}
+                            {% if pizza_id == pizza.id %}
+                                {% for size_id, price in sizes.items %}
+                                    "{{ size_id }}": "{{ price }}"{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div> -->
+
+                    <!-- '{
                         {% for price in prices %}
                             {% if price.category.id == cat.id %}
                                 "{{ price.size.id }}": "{{ price.price }}"{% if not forloop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    }' -->
+
+                    <form method="post" class="add-to-cart-form" data-prices='{
+                        {% for pizza_id, sizes in pizza_prices.items %}
+                            {% if pizza_id == pizza.id %}
+                                {% for size_id, price in sizes.items %}
+                                    "{{ size_id }}": "{{ price }}"{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
                             {% endif %}
                         {% endfor %}
                     }'>
