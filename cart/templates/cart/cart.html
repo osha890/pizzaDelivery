@@ -13,20 +13,28 @@
             </form>
         </div>
         <div class="cart-list">
-            <h2>Cart</h2>
-            {% for ci in cart_items %}
-                <div class="cart-item">
-                    <div class="ci-left">
-                        <div class="pizza-name">{{ ci.pizza.name }}</div>
-                        <div class="pizza-size">{{ ci.size.name }}</div>
+            <div>
+                <h2>Cart</h2>
+                {% for ci in cart_items %}
+                    <div class="cart-item">
+                        <div class="ci-left">
+                            <div class="pizza-name">{{ ci.pizza.name }}</div>
+                            <div class="pizza-size">{{ ci.size.name }}</div>
+                        </div>
+                        <div class="ci-right">
+                            <div class="item-price">{{ ci.get_total_price }}$</div>
+                            <button class="update-quantity" data-action="decrease" data-item-id="{{ ci.id }}">-</button>
+                            <div class="item-quantity">{{ ci.quantity }}</div>
+                            <button class="update-quantity" data-action="increase" data-item-id="{{ ci.id }}">+</button>
+                        </div>
                     </div>
-                    <div class="ci-right">
-                        <button class="update-quantity" data-action="decrease" data-item-id="{{ ci.id }}">-</button>
-                        <div class="item-quantity">{{ ci.quantity }}</div>
-                        <button class="update-quantity" data-action="increase" data-item-id="{{ ci.id }}">+</button>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="cart-price">
+                {% if cart_items %}
+                    {{ cart.get_total_price }}$
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>
@@ -53,8 +61,14 @@
                     .then(data => {
                         if (data.quantity !== undefined) {
                             this.parentElement.parentElement.querySelector('.item-quantity').innerText = data.quantity; // Исправим здесь
+                            this.parentElement.parentElement.querySelector('.item-price').innerText = data.price + '$';
+                            document.querySelector('.cart-price').innerText = data.cart_price + '$';
                         } else if (data.error === 'item deleted') {
                             this.parentElement.parentElement.remove(); // Удалим элемент из DOM, если он удален на сервере
+                            document.querySelector('.cart-price').innerText = data.cart_price + '$';
+                            if (document.querySelectorAll('.cart-item').length == 0) {
+                                document.querySelector('.cart-price').remove()
+                            }
                         }
                     })
                     .catch(error => {

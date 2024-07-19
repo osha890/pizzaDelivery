@@ -15,15 +15,10 @@ def cart_view(request):
         cart_items = CartItem.objects.filter(cart=cart)
         context = {
             'cart_items': cart_items,
+            'cart': cart,
             'title': 'Cart',
         }
         return render(request, 'cart/cart.html', context)
-    # elif request.method == 'POST':
-    #     ci_id = int(request.POST.get('ci_id'))
-    #     ci = CartItem.objects.filter(id=ci_id, cart__user=request.user).first()
-    #     if ci:
-    #         ci.delete()
-    #         return redirect('success')
     return redirect('cart')
 
 
@@ -40,10 +35,11 @@ def update_quantity(request):
                 return JsonResponse({'error': 'Invalid data'}, status=400)
 
             item = CartItem.objects.get(id=item_id)
+            cart = Cart.objects.get(user=request.user)
 
             if action == 'decrease' and item.quantity == 1:
                 item.delete()
-                return JsonResponse({'error': 'item deleted'})  # Отправим специальный ответ
+                return JsonResponse({'error': 'item deleted', 'cart_price': cart.get_total_price()})  # Отправим специальный ответ
             elif action == 'decrease':
                 item.quantity -= 1
                 item.save()
@@ -51,7 +47,7 @@ def update_quantity(request):
                 item.quantity += 1
                 item.save()
 
-            return JsonResponse({'quantity': item.quantity})
+            return JsonResponse({'quantity': item.quantity, 'price': item.get_total_price(), 'cart_price': cart.get_total_price()})
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)

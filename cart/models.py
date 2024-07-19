@@ -13,6 +13,13 @@ class Cart(models.Model):
     def __str__(self):
         return f'{self.pk}'
 
+    def get_total_price(self):
+        total_price = 0
+        items = self.cartitem_set.select_related('pizza', 'size').all()
+        for item in items:
+            total_price += item.get_total_price()
+        return total_price
+
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
